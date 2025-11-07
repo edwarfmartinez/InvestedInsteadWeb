@@ -1,1 +1,325 @@
-Hola
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Invested Instead</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #04050f;
+      --card: rgba(255, 255, 255, 0.08);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --text: #f7f8fc;
+      --muted: #a9b0c7;
+      --accent: #72f5b4;
+      font-family: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #131735, #04050f 60%);
+      color: var(--text);
+      font-family: inherit;
+    }
+
+    .shell {
+      width: min(1200px, 100%);
+      margin: 0 auto;
+      padding: 48px 24px 96px;
+      display: flex;
+      flex-direction: column;
+      gap: 64px;
+    }
+
+    .page {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 4vw, 3.5rem);
+      margin: 0 0 16px;
+      line-height: 1.1;
+    }
+
+    .hero p {
+      font-size: 1.125rem;
+      color: var(--muted);
+      margin: 0 0 32px;
+      max-width: 38ch;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .btn {
+      appearance: none;
+      border: none;
+      border-radius: 999px;
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #041b14;
+      box-shadow: 0 15px 35px rgba(114, 245, 180, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .highlights {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .highlight-card {
+      padding: 20px;
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+      background: var(--card);
+      backdrop-filter: blur(16px);
+    }
+
+    .highlight-card strong {
+      display: block;
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+      color: var(--accent);
+    }
+
+    .mockup {
+      position: relative;
+    }
+
+    .mockup img {
+      width: 100%;
+      max-width: 420px;
+      display: block;
+      margin: 0 auto;
+      border-radius: 24px;
+      box-shadow: 0 25px 60px rgba(7, 9, 25, 0.7);
+    }
+
+    .badge {
+      position: absolute;
+      top: 8%;
+      left: -20px;
+      background: #131735;
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 12px 20px;
+      font-size: 0.95rem;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+    }
+
+    .story-card {
+      background: linear-gradient(135deg, rgba(19, 23, 53, 0.9), rgba(4, 5, 15, 0.85));
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 32px;
+      line-height: 1.6;
+      font-size: 1.1rem;
+      box-shadow: 0 35px 70px rgba(3, 5, 15, 0.55);
+    }
+
+    .story-card p {
+      margin: 0 0 16px;
+      color: var(--muted);
+    }
+
+    .story-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .info-block {
+      border-radius: 18px;
+      padding: 28px;
+      border: 1px solid var(--card-border);
+      background: rgba(7, 9, 25, 0.7);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    }
+
+    .info-block h2 {
+      margin: 0 0 12px;
+      font-size: 1.4rem;
+      letter-spacing: 0.02em;
+    }
+
+    .info-block p {
+      margin: 0 0 16px;
+      color: var(--muted);
+    }
+
+    .info-block ul {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .info-block li {
+      line-height: 1.4;
+    }
+
+    .closing {
+      text-align: center;
+      padding-top: 16px;
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
+    .closing strong {
+      display: block;
+      margin-top: 8px;
+      color: var(--text);
+      font-size: 1.2rem;
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding-top: 0;
+      }
+
+      .badge {
+        position: static;
+        display: inline-block;
+        margin: 16px auto 0;
+      }
+
+      .shell {
+        padding-top: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <main class="page">
+      <section class="hero">
+        <h1>Invested Instead</h1>
+        <p>Turn everyday choices into long-term wealth. Track spending, simulate smarter swaps, and build a portfolio that reflects the life you want.</p>
+        <p>Explore the tradeoffs of each purchase, feel in control of your cash flow, and celebrate the progress your future self will thank you for.</p>
+
+        <div class="actions">
+          <button class="btn btn-primary">Get Early Access</button>
+          <button class="btn btn-secondary">See Live Demo</button>
+        </div>
+
+        <div class="highlights">
+          <article class="highlight-card">
+            <strong>How It Works</strong>
+            Track what you have spent or plan purchases and see the investing opportunity in seconds.
+          </article>
+          <article class="highlight-card">
+            <strong>Why It Matters</strong>
+            Real tradeoffs make it easier to build better habits and reduce impulse buys.
+          </article>
+          <article class="highlight-card">
+            <strong>Optional Premium</strong>
+            Unlock unlimited comparisons, deep insights, and ongoing feature drops.
+          </article>
+        </div>
+      </section>
+
+      <figure class="mockup">
+        <img src="InvestInstead.002@3x.png" alt="Invested Instead app preview" />
+        <figcaption class="badge">Beta waitlist now open</figcaption>
+      </figure>
+    </main>
+
+    <section class="story-card">
+      <p>Everyday purchases seem small — a coffee here, a snack there. But over time, those small choices add up. Invested Instead helps you see the hidden value of your money by showing what your purchases could be worth today if you had invested that same amount instead.</p>
+      <p>This is not about guilt or restriction. It is about awareness — a gentle pause before spending, so you can choose what truly matters to you.</p>
+    </section>
+
+    <section class="info-grid">
+      <article class="info-block">
+        <h2>How It Works</h2>
+        <p>Enter something you are thinking of buying — or track what you have already purchased. Invested Instead instantly shows you:</p>
+        <ul>
+          <li>What that money could be worth now if it had been invested in the past</li>
+          <li>How value grows through compounding over time</li>
+          <li>The long-term impact of small daily decisions</li>
+        </ul>
+        <p>The goal is not to tell you not to spend. The goal is to help you spend intentionally — aligned with your priorities, your goals, and your future self.</p>
+      </article>
+
+      <article class="info-block">
+        <h2>Why It Matters</h2>
+        <p>Small choices today shape the life you build tomorrow. Seeing the real financial tradeoffs helps you:</p>
+        <ul>
+          <li>Build better spending habits</li>
+          <li>Strengthen long-term thinking</li>
+          <li>Reduce impulse purchases</li>
+          <li>Feel more confident about money</li>
+        </ul>
+      </article>
+
+      <article class="info-block">
+        <h2>Features</h2>
+        <ul>
+          <li>Clean, calming interface designed for reflection</li>
+          <li>Instant comparison of spending vs. investing outcomes</li>
+          <li>Simple financial modeling — no jargon, no complexity</li>
+          <li>Gentle tone — no guilt, no pressure, no lectures</li>
+          <li>Works with real investment growth data</li>
+          <li>Private by default — your data stays on your device</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="info-grid">
+      <article class="info-block">
+        <h2>Optional Premium Access</h2>
+        <p>Upgrade to go deeper whenever you are ready:</p>
+        <ul>
+          <li>Unlimited comparisons</li>
+          <li>Full insights and history tracking</li>
+          <li>Continued development and new features</li>
+          <li>No commitments. Cancel anytime.</li>
+        </ul>
+      </article>
+    </section>
+
+    <div class="closing">
+      <p>Invested Instead is for the person you are now — and the future you are becoming.</p>
+      <strong>Small choices. Big outcomes.</strong>
+    </div>
+  </div>
+</body>
+</html>
