@@ -7,9 +7,10 @@
   <style>
     :root {
       color-scheme: light dark;
-      --bg: #04050f;
-      --card: rgba(255, 255, 255, 0.08);
-      --card-border: rgba(255, 255, 255, 0.12);
+      --bg: #050413;
+      --bg-soft: rgba(255, 255, 255, 0.06);
+      --card: rgba(15, 18, 46, 0.72);
+      --border: rgba(255, 255, 255, 0.14);
       --text: #f7f8fc;
       --muted: #a9b0c7;
       --accent: #72f5b4;
@@ -23,303 +24,416 @@
     body {
       margin: 0;
       min-height: 100vh;
-      background: radial-gradient(circle at top, #131735, #04050f 60%);
+      background: radial-gradient(circle at top, #171c46 0%, #050413 70%);
       color: var(--text);
-      font-family: inherit;
     }
 
     .shell {
-      width: min(1200px, 100%);
+      width: min(1120px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 48px 24px 96px;
+      padding: 48px 16px 80px;
       display: flex;
       flex-direction: column;
-      gap: 64px;
+      gap: 56px;
     }
 
-    .page {
+    .hero {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 48px;
-      align-items: center;
+      grid-template-columns: minmax(320px, 1fr) minmax(260px, 360px);
+      gap: 32px;
     }
 
-    .hero h1 {
-      font-size: clamp(2.4rem, 4vw, 3.5rem);
-      margin: 0 0 16px;
-      line-height: 1.1;
-    }
-
-    .hero p {
-      font-size: 1.125rem;
-      color: var(--muted);
-      margin: 0 0 32px;
-      max-width: 38ch;
-    }
-
-    .actions {
+    .brand {
       display: flex;
       flex-wrap: wrap;
-      gap: 16px;
-      margin-bottom: 40px;
-    }
-
-    .btn {
-      appearance: none;
-      border: none;
-      border-radius: 999px;
-      padding: 14px 28px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #041b14;
-      box-shadow: 0 15px 35px rgba(114, 245, 180, 0.3);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      border: 1px solid var(--card-border);
-      color: var(--text);
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-    }
-
-    .highlights {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
-    }
-
-    .highlight-card {
-      padding: 20px;
-      border-radius: 14px;
-      border: 1px solid var(--card-border);
-      background: var(--card);
-      backdrop-filter: blur(16px);
-    }
-
-    .highlight-card strong {
-      display: block;
-      font-size: 1.4rem;
+      align-items: center;
+      gap: 18px;
       margin-bottom: 8px;
+    }
+
+    .brand img {
+      height: clamp(60px, 6vw, 88px);
+      width: auto;
+      border-radius: 18px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(2.6rem, 4.5vw, 3.6rem);
+      line-height: 1.05;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.22em;
       color: var(--accent);
     }
 
-    .mockup {
-      position: relative;
+    .hero p.lede {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 58ch;
     }
 
-    .mockup img {
-      width: 100%;
-      max-width: 420px;
+    .hero-bullets {
+      margin: 0 0 28px;
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      color: var(--text);
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .download-btn {
+      display: inline-block;
+      width: fit-content;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .download-btn img {
       display: block;
-      margin: 0 auto;
-      border-radius: 24px;
-      box-shadow: 0 25px 60px rgba(7, 9, 25, 0.7);
+      width: 190px;
+      height: auto;
     }
 
-    .badge {
-      position: absolute;
-      top: 8%;
-      left: -20px;
-      background: #131735;
-      border: 1px solid var(--card-border);
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 38px rgba(114, 245, 180, 0.28);
+    }
+
+    .hero-card {
+      border-radius: 28px;
+      padding: 28px;
+      border: 1px solid var(--border);
+      background: linear-gradient(165deg, rgba(8, 10, 32, 0.9), rgba(25, 32, 73, 0.85));
+      box-shadow: 0 40px 70px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .hero-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .stat-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 14px;
+    }
+
+    .stat {
+      padding: 16px;
       border-radius: 18px;
-      padding: 12px 20px;
-      font-size: 0.95rem;
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
     }
 
-    .story-card {
-      background: linear-gradient(135deg, rgba(19, 23, 53, 0.9), rgba(4, 5, 15, 0.85));
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 32px;
-      line-height: 1.6;
-      font-size: 1.1rem;
-      box-shadow: 0 35px 70px rgba(3, 5, 15, 0.55);
+    .stat strong {
+      display: block;
+      font-size: 1.5rem;
+      color: var(--accent);
     }
 
-    .story-card p {
-      margin: 0 0 16px;
+    .stat span {
+      font-size: 0.9rem;
       color: var(--muted);
     }
 
-    .story-card p:last-child {
-      margin-bottom: 0;
-    }
-
-    .info-grid {
+    .split-section {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: minmax(280px, 2fr) minmax(240px, 1fr);
       gap: 24px;
     }
 
-    .info-block {
-      border-radius: 18px;
+    .split-block {
+      border-radius: 24px;
       padding: 28px;
-      border: 1px solid var(--card-border);
-      background: rgba(7, 9, 25, 0.7);
+      border: 1px solid var(--border);
+      background: var(--card);
       backdrop-filter: blur(18px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.35);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
-    .info-block h2 {
-      margin: 0 0 12px;
-      font-size: 1.4rem;
-      letter-spacing: 0.02em;
-    }
-
-    .info-block p {
-      margin: 0 0 16px;
-      color: var(--muted);
-    }
-
-    .info-block ul {
+    .split-block h2,
+    .split-block h3 {
       margin: 0;
-      padding-left: 20px;
-      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .split-block p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .split-block ul {
+      margin: 0;
+      padding-left: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .split-block.accent {
+      background: linear-gradient(145deg, rgba(13, 35, 32, 0.9), rgba(6, 13, 33, 0.85));
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .feature-card {
+      border-radius: 20px;
+      padding: 26px;
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+      backdrop-filter: blur(14px);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .feature-card h3 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .feature-card p,
+    .feature-card ul {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .feature-card ul {
+      padding-left: 18px;
       display: flex;
       flex-direction: column;
       gap: 8px;
     }
 
-    .info-block li {
-      line-height: 1.4;
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
     }
 
-    .closing {
-      text-align: center;
-      padding-top: 16px;
+    .detail-card {
+      border-radius: 20px;
+      padding: 24px;
+      border: 1px solid var(--border);
+      background: rgba(15, 18, 46, 0.85);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .detail-card ul {
+      margin: 0;
+      padding-left: 18px;
       color: var(--muted);
-      font-size: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
-    .closing strong {
-      display: block;
-      margin-top: 8px;
-      color: var(--text);
+    .cta-banner {
+      border-radius: 26px;
+      padding: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: linear-gradient(120deg, rgba(6, 10, 30, 0.95), rgba(32, 43, 84, 0.9));
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 45px 70px rgba(0, 0, 0, 0.45);
+    }
+
+    .cta-banner p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .cta-banner strong {
       font-size: 1.2rem;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
     }
 
-    @media (max-width: 768px) {
-      body {
-        padding-top: 0;
+    @media (max-width: 960px) {
+      .hero,
+      .split-section {
+        grid-template-columns: 1fr;
       }
 
-      .badge {
-        position: static;
-        display: inline-block;
-        margin: 16px auto 0;
+      .feature-grid,
+      .detail-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .brand {
+        flex-direction: column;
+        align-items: flex-start;
       }
 
-      .shell {
-        padding-top: 32px;
+      .download-btn img {
+        width: 160px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="shell">
-    <main class="page">
-      <section class="hero">
-        <h1>Invested Instead</h1>
-        <p>Turn everyday choices into long-term wealth. Track spending, simulate smarter swaps, and build a portfolio that reflects the life you want.</p>
-        <p>Explore the tradeoffs of each purchase, feel in control of your cash flow, and celebrate the progress your future self will thank you for.</p>
-
-        <div class="actions">
-          <button class="btn btn-primary">Get Early Access</button>
-          <button class="btn btn-secondary">See Live Demo</button>
+  <main class="shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <div class="brand">
+          <img src="InvestInstead.002@3x.png" alt="Invested Instead logo" />
+          <h1>Invested Instead</h1>
         </div>
-
-        <div class="highlights">
-          <article class="highlight-card">
-            <strong>How It Works</strong>
-            Track what you have spent or plan purchases and see the investing opportunity in seconds.
+        <span class="eyebrow">Money clarity</span>
+        <p class="lede">Turn everyday choices into long-term wealth. Track spending, simulate smarter swaps, and build a portfolio that reflects the life you want.</p>
+        <ul class="hero-bullets">
+          <li>Track what you spend or plan to spend and see the investing opportunity instantly.</li>
+          <li>Simulate smarter swaps, understand compounding, and feel in control of cash flow.</li>
+          <li>Celebrate the progress your future self will thank you for — without guilt or shame.</li>
+        </ul>
+        <div class="hero-cta">
+          <a class="download-btn" href="https://apps.apple.com/us/app/little-grows-invested-instead/id6754944101" target="_blank" rel="noopener">
+            <img src="Download.svg" alt="Download Invested Instead on the App Store" />
+          </a>
+          <small style="color: var(--muted);">Private by default. No sign-ups or trackers.</small>
+        </div>
+      </div>
+      <aside class="hero-card">
+        <span class="eyebrow">Why people stay</span>
+        <p>Ground every purchase in context so decisions feel aligned with values, not impulses.</p>
+        <div class="stat-list">
+          <article class="stat">
+            <strong>60 sec</strong>
+            <span>to compare buy vs invest</span>
           </article>
-          <article class="highlight-card">
-            <strong>Why It Matters</strong>
-            Real tradeoffs make it easier to build better habits and reduce impulse buys.
+          <article class="stat">
+            <strong>3×</strong>
+            <span>more mindful swaps every week</span>
           </article>
-          <article class="highlight-card">
-            <strong>Optional Premium</strong>
-            Unlock unlimited comparisons, deep insights, and ongoing feature drops.
+          <article class="stat">
+            <strong>100%</strong>
+            <span>of data stays on your device</span>
           </article>
         </div>
-      </section>
+      </aside>
+    </header>
 
-      <figure class="mockup">
-        <img src="InvestInstead.002@3x.png" alt="Invested Instead app preview" />
-        <figcaption class="badge">Beta waitlist now open</figcaption>
-      </figure>
-    </main>
-
-    <section class="story-card">
-      <p>Everyday purchases seem small — a coffee here, a snack there. But over time, those small choices add up. Invested Instead helps you see the hidden value of your money by showing what your purchases could be worth today if you had invested that same amount instead.</p>
-      <p>This is not about guilt or restriction. It is about awareness — a gentle pause before spending, so you can choose what truly matters to you.</p>
-    </section>
-
-    <section class="info-grid">
-      <article class="info-block">
-        <h2>How It Works</h2>
-        <p>Enter something you are thinking of buying — or track what you have already purchased. Invested Instead instantly shows you:</p>
-        <ul>
-          <li>What that money could be worth now if it had been invested in the past</li>
-          <li>How value grows through compounding over time</li>
-          <li>The long-term impact of small daily decisions</li>
-        </ul>
-        <p>The goal is not to tell you not to spend. The goal is to help you spend intentionally — aligned with your priorities, your goals, and your future self.</p>
+    <section class="split-section">
+      <article class="split-block">
+        <span class="eyebrow">Why it matters</span>
+        <h2>Small choices. Big perspective.</h2>
+        <p>Everyday purchases seem small — a coffee here, a snack there. But over time, those small choices add up. Invested Instead helps you see the hidden value of your money by showing what your purchases could be worth today if you had invested that same amount instead.</p>
+        <p>This is not about guilt or restriction; it is about awareness — a gentle pause before spending, so you can choose what truly matters to you.</p>
       </article>
-
-      <article class="info-block">
-        <h2>Why It Matters</h2>
-        <p>Small choices today shape the life you build tomorrow. Seeing the real financial tradeoffs helps you:</p>
+      <article class="split-block accent">
+        <span class="eyebrow">Go deeper</span>
+        <h3>Optional Premium Access</h3>
+        <p>Upgrade when you are ready for richer insights. Cancel anytime.</p>
         <ul>
-          <li>Build better spending habits</li>
-          <li>Strengthen long-term thinking</li>
-          <li>Reduce impulse purchases</li>
-          <li>Feel more confident about money</li>
-        </ul>
-      </article>
-
-      <article class="info-block">
-        <h2>Features</h2>
-        <ul>
-          <li>Clean, calming interface designed for reflection</li>
-          <li>Instant comparison of spending vs. investing outcomes</li>
-          <li>Simple financial modeling — no jargon, no complexity</li>
-          <li>Gentle tone — no guilt, no pressure, no lectures</li>
-          <li>Works with real investment growth data</li>
-          <li>Private by default — your data stays on your device</li>
+          <li>Unlimited comparisons and scenario planning</li>
+          <li>Full insights with history tracking</li>
+          <li>Priority access to new experiments</li>
+          <li>Supports ongoing development</li>
         </ul>
       </article>
     </section>
 
-    <section class="info-grid">
-      <article class="info-block">
-        <h2>Optional Premium Access</h2>
-        <p>Upgrade to go deeper whenever you are ready:</p>
+    <section class="feature-grid">
+      <article class="feature-card">
+        <h3>How It Works</h3>
+        <p>Log a purchase you made — or one you are considering — and instantly see the investing opportunity it unlocks.</p>
         <ul>
-          <li>Unlimited comparisons</li>
-          <li>Full insights and history tracking</li>
-          <li>Continued development and new features</li>
-          <li>No commitments. Cancel anytime.</li>
+          <li>What that money would be worth today if invested earlier</li>
+          <li>How compounding changes the outcome over time</li>
+          <li>The long-term impact of repeating the habit</li>
+        </ul>
+      </article>
+      <article class="feature-card">
+        <h3>Clarity at a glance</h3>
+        <p>Each card delivers a focused snapshot so you can move from intention to action without hunting for context.</p>
+        <ul>
+          <li>Clean, calming interface for thoughtful spending</li>
+          <li>Plain-language insights with real growth data</li>
+          <li>Gentle coaching — no guilt, no lectures</li>
+        </ul>
+      </article>
+      <article class="feature-card">
+        <h3>Privacy built-in</h3>
+        <p>Invested Instead keeps everything on-device. No accounts, log-ins, or trackers — just you and your habits.</p>
+        <ul>
+          <li>Private by default</li>
+          <li>Calm reminders to stay grounded</li>
+          <li>Control over your own data</li>
         </ul>
       </article>
     </section>
 
-    <div class="closing">
+    <section class="detail-grid">
+      <article class="detail-card">
+        <span class="eyebrow">Habits</span>
+        <h3>Build momentum</h3>
+        <ul>
+          <li>Track spending and see instant tradeoffs</li>
+          <li>Spot patterns before they become regrets</li>
+          <li>Celebrate small wins with future-you in mind</li>
+        </ul>
+      </article>
+      <article class="detail-card">
+        <span class="eyebrow">Insights</span>
+        <h3>Understand compounding</h3>
+        <ul>
+          <li>Visualize how value grows over time</li>
+          <li>Compare multiple what-if scenarios</li>
+          <li>Feel confident about long-term thinking</li>
+        </ul>
+      </article>
+      <article class="detail-card">
+        <span class="eyebrow">Support</span>
+        <h3>Optional premium</h3>
+        <ul>
+          <li>Unlimited comparisons and deeper insights</li>
+          <li>History tracking for any category</li>
+          <li>Continuous feature drops and experiments</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="cta-banner">
       <p>Invested Instead is for the person you are now — and the future you are becoming.</p>
       <strong>Small choices. Big outcomes.</strong>
-    </div>
-  </div>
+      <div>
+        <a class="download-btn" href="https://apps.apple.com/us/app/little-grows-invested-instead/id6754944101" target="_blank" rel="noopener">
+          <img src="Download.svg" alt="Download Invested Instead on the App Store" />
+        </a>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
